@@ -1,0 +1,182 @@
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">{{locationWeather.location.name}}</span>
+            <div class="mdl-layout-spacer"></div>
+            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="searchLocation()">
+                <i class="material-icons">search</i>
+            </button>
+            <button id="demo-menu-lower-right"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">more_vert</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="demo-menu-lower-right">
+                <li class="mdl-menu__item" ng-click="changeLocation()">Use GPS</li>
+            </ul>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Now</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab">Hourly</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab">Daily</a>
+        </div>
+    </header>
+    <!--<div class="mdl-layout__drawer">-->
+        <!--<aside class="mdl-components__nav docs-text-styling">-->
+            <!--<span class="mdl-layout-title">{{locationWeather.location.name}} {{locationWeather.current.temp_c}} <sup><small>o</small></sup><small>C</small></span>-->
+
+            <!--&lt;!&ndash;<span class="mdl-components__link mdl-component badges">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="mdl-components__link-image">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="text">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button>Location</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+        <!--</aside>-->
+
+    <!--</div>-->
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="page-content">
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-card mdl-shadow--2dp current-weather-card">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text mdl-color-text--deep-orange-500">Current</h2>
+                            <span class="mdl-color-text--grey-600 mdl-typography--body-3 mdl-textfield--full-width"><small>{{}}{{millisToUTCDate(locationWeather.location.localtime_epoch*1000) | date:'hh:mm a'}}</small></span>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <div style="width: 50%; float: left;">
+                                <span class="mdl-card__title-text mdl-color-text--teal-600 mdl-textfield--full-width">{{locationWeather.current.condition.text}}</span>
+                                <span class="mdl-color-text--grey-600 mdl-typography--body-1 mdl-textfield--full-width">{{locationWeather.current.temp_c}} <sup><small>o</small></sup><small>C</small> <small>(RealFeel {{locationWeather.current.feelslike_c}} <sup><small>o</small></sup><small>C</small>)</small></span>
+                                <span class="mdl-color-text--grey-600 mdl-typography--body-1 mdl-textfield--full-width">Wind Speed {{locationWeather.current.wind_kph}} KPH</span>
+                                <span class="mdl-color-text--grey-600 mdl-typography--body-1 mdl-textfield--full-width">Humidity {{locationWeather.current.humidity}} %</span>
+                                </div>
+                            <div style="width: 50%; float: left; text-align: right;"><img ng-src="{{locationWeather.current.condition.icon}}" alt=""></div>
+
+                        </div>
+
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-card mdl-shadow--2dp hour-weather-card" ng-repeat="forcast in weatherForcastHourly.hour">
+                        <div class="mdl-card__supporting-text">
+                            <div style="width: 43.33%; float: left;">
+                                <span class="mdl-textfield--full-width mdl-typography--caption">{{millisToUTCDate(forcast.time_epoch*1000) | date:'h a'}}</span>
+                                <span class="mdl-textfield--full-width mdl-typography--caption">{{forcast.condition.text}}</span>
+                            </div>
+                            <div style="width: 23.33%; float: left; text-align: center;">
+                                <img width="50px" ng-src="{{forcast.condition.icon}}" alt="">
+                            </div>
+                            <div style="width: 33.33%; float: left; text-align: right;">
+                                <span class="mdl-typography--caption">{{forcast.temp_c}} <sup><small>o</small></sup><small>C</small></span> /
+                                <span class="mdl-typography--caption">{{forcast.feelslike_c}} <sup><small>o</small></sup><small>C</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    {{millisToUTCDate(locationWeather.location.localtime_epoch*1000) | date:'LLLL'}}
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-card mdl-shadow--2dp daily-weather-card" ng-repeat="forcast in locationWeatherForcast">
+                        <div class="mdl-card__supporting-text">
+                            <div style="width: 100%; float: left;">
+                                {{millisToUTCDate(forcast.date_epoch*1000) | date:'EEEE'}} , {{millisToUTCDate(forcast.date_epoch*1000) | date:'d/MM'}}
+
+                                <!--{{forcast.condition.icon}}-->
+
+                            </div>
+                            <div style="width: 33.33%; float: left;">
+                                <img ng-src="{{forcast.day.condition.icon}}" alt="">
+                                <!--{{forcast.day}}-->
+                                <!--{{forcast.date}}-->
+                            </div>
+                            <div style="width: 33.33%; float: left;">
+                                {{forcast.day.condition.text}}
+                            </div>
+
+                            <div style="width: 33.33%; float: left;">
+                                <div class="astro">
+                                    <ul>
+                                        <li>Min : <small>{{forcast.day.mintemp_c}}</small></li>
+                                        <li>Max : <small>{{forcast.day.maxtemp_c}}</small></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="astro">
+                                <ul>
+                                    <li>Sun Rise : <small>{{forcast.astro.sunrise}}</small></li>
+                                    <li>Sun Set : <small>{{forcast.astro.sunset}}</small></li>
+                                </ul>
+                            </div>
+                            <div class="astro">
+                                <ul>
+                                    <li>Moon Rise : <small>{{forcast.astro.moonrise}}</small></li>
+                                    <li>Moon Set : <small>{{forcast.astro.moonset}}</small></li>
+                                </ul>
+                            </div>
+                            <!--{"sunrise":"07:03 AM","sunset":"06:08 PM","moonrise":"06:36 PM","moonset":"07:05 AM"}-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header search-container" style="position: fixed; top: 0; z-index: 999; background-color: rgba(0, 0, 0, 0.25);">
+    <header class="mdl-layout__header mdl-layout__header--scroll">
+        <div class="mdl-layout__header-row" style="padding-left: 20px; padding-right: 20px;">
+            <!-- Title -->
+            <input gm-places-autocomplete ng-model="autocomplete" type="text" style="padding: 8px; width: 100%; font-size: 14px; color: rgba(128, 128, 128, 0.6); outline: rgba(0, 0, 0, 0.25)" placeholder="search location">
+            <!-- Add spacer, to align navigation to the right -->
+        </div>
+    </header>
+</div>
+
+<div class="data-loading" id="dataLoader">
+    <div class="loader mdl-shadow--2dp">
+        <p>Loading Data...</p>
+        <div class="spin_load">
+            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+            <span>Please Wait</span>
+        </div>
+    </div>
+</div>
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>-->
+
+<!--<script>-->
+    <!--function init() {-->
+        <!--var input = document.getElementById('locationTextField');-->
+
+        <!--var options = {-->
+            <!--types: ['(cities)']-->
+        <!--};-->
+        <!--var autocomplete = new google.maps.places.Autocomplete(input,options);-->
+        <!--google.maps.event.addListener(autocomplete, 'place_changed',-->
+                <!--function() {-->
+                    <!--var place = autocomplete.getPlace();-->
+                    <!--var lat = place.geometry.location.lat();-->
+                    <!--var lng = place.geometry.location.lng();-->
+                    <!--document.getElementById("output").innerHTML = "Lat: "+lat+"<br />Lng: "+lng;-->
+                <!--}-->
+        <!--);-->
+    <!--}-->
+    <!--google.maps.event.addDomListener(window, 'load', init);-->
+<!--</script>-->

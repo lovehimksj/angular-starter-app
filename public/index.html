@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demoApp">
+<!--<base href="">-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Sample Angular Material Design template</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="bower_components/jquery/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="bower_components/material-design-lite/material.js"></script>
+    <!--<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">-->
+    <link rel="stylesheet" href="bower_components/material-design-lite/material.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <ng-view></ng-view>
+    <!--application library-->
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angularjs-google-maps/angularjs-google-maps.js"></script>
+    <!--application configuration file-->
+    <script type="text/javascript" src="js/app.config.js"></script>
+    <!--view tiling-->
+    <!--<script type="text/javascript" src="app/directives/view/uiTiles.js"></script>-->
+    <!--Controllers-->
+    <!--<script type="text/javascript" src="app/controllers/commonControllers/homeCtrl.js"></script>-->
+    <!--<script type="text/javascript" src="app/controllers/commonControllers/headerCtrl.js"></script>-->
+    <!--<script type="text/javascript" src="app/controllers/commonControllers/tourCtrl.js"></script>-->
+    <script type="text/javascript" src="app/controllers/layoutControllers/mainActivityCtrl.js"></script>
+
+
+    <!--services-->
+    <script type="text/javascript" src="app/services/localStorage.js"></script>
+    <script type="text/javascript" src="app/services/webServices.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4e1yQ-HmbGC0CXWlH3_52jq8Ey8QaPJU&libraries=places"></script>
+</body>
+</html>

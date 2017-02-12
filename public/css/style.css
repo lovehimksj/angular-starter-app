@@ -1,0 +1,53 @@
+.search-container {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: none;
+}
+.search-container.is-active {
+    display: block;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: geometricPrecision;
+    image-rendering: auto;
+}
+.pac-container {
+    /*display: block !important;*/
+    top:56px !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+}
+.hdpi.pac-logo:after {
+    display: none !important;
+}
+.pac-item {
+    padding:10px 20px !important;
+}
+.current-weather-card .mdl-card__title {
+    flex-wrap: wrap;
+}
+.mdl-card__supporting-text {
+    width:100%;
+}
+.hour-weather-card {
+    min-height: 100%;
+}
+.hour-weather-card .mdl-textfield--full-width {
+    float: left;
+}
+.astro {
+    float: left;
+    position: relative;
+    width:100%;
+}
+.astro ul {
+    margin:0;
+    padding:0;
+}
